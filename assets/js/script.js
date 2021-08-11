@@ -1,56 +1,31 @@
 // Assignment code here
-var finalPassword = [];
+var tempP = "";
+var count = 0;
+var charLength = null;
 
 var length = function () {
   var promptLength = window.prompt("How many character do you want?");
 
   if (promptLength <= 128 && promptLength >= 8) {
+    charLength = promptLength;
     userPrompt();
   } else {
     window.alert("Please inster a number between 8 to 128");
   }
 };
 
-/*var specialChar = function () {
-  var promptChar = window.confirm("Do you want the special char?");
-  if (promptChar) {
-    numerical();
-  }
-};*/
-
 var randomChar = function () {
   var charList = " !\"#$%&'()*+,-./:;<=>?@[]^_`{|}~";
   return charList[Math.floor(Math.random() * charList.length)];
 };
 
-/*var numerical = function () {
-  var promptNum = window.confirm("Do you want number?");
-  if (promptNum) {
-    lowerCase();
-  }
-};*/
-
 var randomNum = function () {
   return String.fromCharCode(Math.floor(Math.random() * 10 + 48));
 };
 
-/*var lowerCase = function () {
-  var promptLowerCase = window.confirm("Do you want lower case?");
-  if (promptLowerCase) {
-    upperCase();
-  }
-};*/
-
 var randomLowerCase = function () {
   return String.fromCharCode(Math.floor(Math.random() * 26 + 97));
 };
-
-/*var upperCase = function () {
-  var prompptUpperCase = window.confirm("Do you want upper case?");
-  if (prompptUpperCase) {
-    generatePassword();
-  }
-};*/
 
 var randomUpperCase = function () {
   return String.fromCharCode(Math.floor(Math.random() * 26 + 65));
@@ -58,81 +33,97 @@ var randomUpperCase = function () {
 
 var userPrompt = function () {
   var promptChar = window.confirm("Do you want the special char?");
-  if (promptChar) {
-    finalPassword.push(randomChar());
-  }
-
   var promptNum = window.confirm("Do you want number?");
-  if (promptNum) {
-    finalPassword.push(randomNum());
-  }
-
   var promptLowerCase = window.confirm("Do you want lower case?");
-  if (promptLowerCase) {
-    finalPassword.push(randomUpperCase());
-  }
-
   var prompptUpperCase = window.confirm("Do you want upper case?");
-  if (prompptUpperCase) {
-    finalPassword.push(randomLowerCase());
+
+  if (promptChar) {
+    count++;
   }
 
-  /*for (var i = 0; i < 2; i++) {
+  if (promptNum) {
+    count++;
+  }
+
+  if (prompptUpperCase) {
+    count++;
+  }
+
+  if (promptLowerCase) {
+    count++;
+  }
+
+  for (var i = 0; i < charLength; i += count) {
     if (promptChar) {
-      finalPassword.push(randomChar());
+      tempP += randomChar();
+    } else {
+      tempP += "";
     }
+
     if (promptNum) {
-      finalPassword.push(randomNum());
+      tempP += randomNum();
+    } else {
+      tempP += "";
     }
-    if (promptLowerCase) {
-      finalPassword.push(randomUpperCase());
-    }
+
     if (prompptUpperCase) {
-      finalPassword.push(randomLowerCase());
+      tempP += randomUpperCase();
+    } else {
+      tempP += "";
     }
-  }*/
+
+    if (promptLowerCase) {
+      tempP += randomLowerCase();
+    } else {
+      tempP += "";
+    }
+  }
   generatePassword();
 };
 
 var generatePassword = function () {
-  /*let finalPassword = [];
+  var finalP = "";
 
-  //finalPassword.push(randomNum());
-  for (let i = 0; i < 3; i++) {
-    finalPassword.push(randomChar());
-    finalPassword.push(randomLowerCase());
-    finalPassword.push(randomUpperCase());
-    finalPassword.push(randomNum());
-  }*/
+  tempP = shuffleString(tempP);
+  console.log(tempP);
 
-  shuffleArray(finalPassword);
-  console.log(finalPassword);
-};
-
-function shuffleArray(array) {
-  for (var i = array.length - 1; i > 0; i--) {
-    // Generate random number
-    var j = Math.floor(Math.random() * (i + 1));
-
-    var temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
+  for (var i = 0; i < charLength; i++) {
+    finalP = finalP + tempP.charAt(i);
   }
 
-  return array;
-}
+  console.log(finalP);
+  return finalP;
+};
+
+var shuffleString = function (tempP) {
+  var arr = tempP.split("");
+
+  for (var i = 0; i < arr.length - 1; ++i) {
+    var j = Math.floor(Math.random() * arr.length);
+    var temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  }
+  tempP = arr.join("");
+
+  return tempP;
+};
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
+  tempP = "";
+  count = 0;
+  charLength = null;
+
   length();
 
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
-  passwordText.value = finalPassword;
+  passwordText.value = password;
 }
 
 // Add event listener to generate button
