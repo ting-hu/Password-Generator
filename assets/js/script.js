@@ -4,7 +4,7 @@ var count = 0;
 var charLength = null;
 const MAX_PWD_LENGTH = 128;
 const MIN_PWD_LENGTH = 8;
-const DIVIDER = 2;
+const HALF_MODIFIER = 2;
 const ASCII_DIFF_ONE = 48;
 const ASCII_DIFF_TWO = 65;
 const ASCII_DIFF_THREE = 97;
@@ -23,7 +23,10 @@ var length = function () {
 
   if (promptLength <= MAX_PWD_LENGTH && MIN_PWD_LENGTH >= 8) {
     //Check if the user input is an integer between the range or not
-    if (promptLength % DIVIDER === 1 || promptLength % DIVIDER === 0) {
+    if (
+      promptLength % HALF_MODIFIER === 1 ||
+      promptLength % HALF_MODIFIER === 0
+    ) {
       charLength = promptLength;
       userPrompt();
     } else {
