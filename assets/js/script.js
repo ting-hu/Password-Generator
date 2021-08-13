@@ -2,7 +2,6 @@
 var tempP = "";
 var count = 0;
 var charLength = null;
-var charList = " !\"#$%&'()*+,-./:;<=>?@[]^_`{|}~";
 
 var length = function () {
   var promptLength = window.prompt(
@@ -10,8 +9,13 @@ var length = function () {
   );
 
   if (promptLength <= 128 && promptLength >= 8) {
-    charLength = promptLength;
-    userPrompt();
+    if (Number.isInteger(promptLength) === true) {
+      charLength = promptLength;
+      userPrompt();
+    } else {
+      window.alert("Need integer");
+      return;
+    }
   } else if (promptLength < 8) {
     window.alert("Password length mush be at least 8 characters");
     return;
@@ -27,6 +31,7 @@ var length = function () {
 };
 
 var randomChar = function () {
+  var charList = " !\"#$%&'()*+,-./:;<=>?@[]^_`{|}~";
   return charList[Math.floor(Math.random() * charList.length)];
 };
 
@@ -43,10 +48,18 @@ var randomUpperCase = function () {
 };
 
 var userPrompt = function () {
-  var promptChar = window.confirm("Do you want the special char?");
-  var promptNum = window.confirm("Do you want number?");
-  var promptLowerCase = window.confirm("Do you want lower case?");
-  var prompptUpperCase = window.confirm("Do you want upper case?");
+  var promptChar = window.confirm(
+    "Click OK to confirm including special characters."
+  );
+  var promptNum = window.confirm(
+    "Click OK to confirm including numeric characters."
+  );
+  var promptLowerCase = window.confirm(
+    "Click OK to confirm including lowercase characters."
+  );
+  var prompptUpperCase = window.confirm(
+    "Click OK to confirm including uppercase characters."
+  );
 
   if (promptChar) {
     count++;
@@ -62,6 +75,13 @@ var userPrompt = function () {
 
   if (promptLowerCase) {
     count++;
+  }
+
+  if (count === 0) {
+    window.alert(
+      "User input invalidated, you need at least one character type"
+    );
+    return;
   }
 
   for (var i = 0; i < charLength; i += count) {
@@ -96,13 +116,11 @@ var userPrompt = function () {
 var generatePassword = function () {
   var finalP = "";
 
-  tempP = shuffleString(tempP);
-  console.log(tempP);
-
   for (var i = 0; i < charLength; i++) {
     finalP = finalP + tempP.charAt(i);
   }
 
+  finalP = shuffleString(finalP);
   console.log(finalP);
   return finalP;
 };
