@@ -29,4 +29,13 @@ Build by Xueting Hu
 
 ## Screenshots
 
-![screenshot_1](./assets/screenshots/screenshots_1.png)
+![screenshot_1](./assets/screenshots/screenshot_1.png)
+![screenshot_2](./assets/screenshots/screenshot_2.png)
+![screenshot_3](./assets/screenshots/screenshot_3.png)
+![screenshot_4](./assets/screenshots/screenshot_4.png)
+![screenshot_5](./assets/screenshots/screenshot_5.png)
+![screenshot_6](./assets/screenshots/screenshot_6.png)
+![screenshot_7](./assets/screenshots/screenshot_7.png)
+![screenshot_8](./assets/screenshots/screenshot_8.png)
+![screenshot_9](./assets/screenshots/screenshot_9.png)
+![screenshot_10](./assets/screenshots/screenshot_10.png)
