@@ -2,24 +2,38 @@
 var tempP = "";
 var count = 0;
 var charLength = null;
+const MAX_PWD_LENGTH = 128;
+const MIN_PWD_LENGTH = 8;
+const DIVIDER = 2;
+const ASCII_DIFF_ONE = 48;
+const ASCII_DIFF_TWO = 65;
+const ASCII_DIFF_THREE = 97;
+const NUMBER_RANGE = 10;
+const LETTER_RANGE = 26;
 
+/**
+ * This function is used to get user input for the length of the password
+ * and make sure the input is valid.
+ * @returns
+ */
 var length = function () {
   var promptLength = window.prompt(
     "How many characters would you like to contain"
   );
 
-  if (promptLength <= 128 && promptLength >= 8) {
-    if (Number.isInteger(promptLength) === true) {
+  if (promptLength <= MAX_PWD_LENGTH && MIN_PWD_LENGTH >= 8) {
+    //Check if the user input is an integer between the range or not
+    if (promptLength % DIVIDER === 1 || promptLength % DIVIDER === 0) {
       charLength = promptLength;
       userPrompt();
     } else {
-      window.alert("Need integer");
+      window.alert("Password needs to be an integer");
       return;
     }
-  } else if (promptLength < 8) {
+  } else if (promptLength < MIN_PWD_LENGTH) {
     window.alert("Password length mush be at least 8 characters");
     return;
-  } else if (promptLength > 128) {
+  } else if (promptLength > MAX_PWD_LENGTH) {
     window.alert("Password length must be no more than 128 characters");
     return;
   } else if (promptLength === null) {
@@ -30,23 +44,51 @@ var length = function () {
   }
 };
 
+/**
+ * This function is to return a speical character randomly.
+ * @returns Randomized special character.
+ */
 var randomChar = function () {
   var charList = " !\"#$%&'()*+,-./:;<=>?@[]^_`{|}~";
   return charList[Math.floor(Math.random() * charList.length)];
 };
 
+/**
+ * This function is to return a numeric character randomly.
+ * @returns Randomized numeric character.
+ */
 var randomNum = function () {
-  return String.fromCharCode(Math.floor(Math.random() * 10 + 48));
+  return String.fromCharCode(
+    Math.floor(Math.random() * NUMBER_RANGE + ASCII_DIFF_ONE)
+  );
 };
 
+/**
+ * This function is to return a lowercase character randomly.
+ * @returns Randomized lowercase character.
+ */
 var randomLowerCase = function () {
-  return String.fromCharCode(Math.floor(Math.random() * 26 + 97));
+  return String.fromCharCode(
+    Math.floor(Math.random() * LETTER_RANGE + ASCII_DIFF_THREE)
+  );
 };
 
+/**
+ * This function is to return a uppwercase character randomly.
+ * @returns Randomized uppercase character.
+ */
 var randomUpperCase = function () {
-  return String.fromCharCode(Math.floor(Math.random() * 26 + 65));
+  return String.fromCharCode(
+    Math.floor(Math.random() * LETTER_RANGE + ASCII_DIFF_TWO)
+  );
 };
 
+/**
+ * This function is to prompt the user selection for the different character
+ * types and make sure the generated password has the corresponded character
+ * types.
+ * @returns
+ */
 var userPrompt = function () {
   var promptChar = window.confirm(
     "Click OK to confirm including special characters."
@@ -113,6 +155,11 @@ var userPrompt = function () {
   generatePassword();
 };
 
+/**
+ * This function is to select the corresponded length of password from the
+ * tempP and shuffle the password for a higher security.
+ * @returns Final password.
+ */
 var generatePassword = function () {
   var finalP = "";
 
@@ -125,18 +172,25 @@ var generatePassword = function () {
   return finalP;
 };
 
-var shuffleString = function (tempP) {
-  var arr = tempP.split("");
+/**
+ * This function is to shuffle the password by spliting the string into array
+ * and join back to the string.
+ * Credit: https://www.codespeedy.com/shuffle-characters-of-a-string-in-javascript/
+ * @param {*} password
+ * @returns Shuffled password.
+ */
+var shuffleString = function (password) {
+  var arr = password.split("");
 
   for (var i = 0; i < arr.length - 1; ++i) {
     var j = Math.floor(Math.random() * arr.length);
-    var temp = arr[i];
+    var password = arr[i];
     arr[i] = arr[j];
-    arr[j] = temp;
+    arr[j] = password;
   }
-  tempP = arr.join("");
+  password = arr.join("");
 
-  return tempP;
+  return password;
 };
 
 // Get references to the #generate element
