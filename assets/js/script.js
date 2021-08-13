@@ -21,7 +21,7 @@ var length = function () {
     "How many characters would you like to contain"
   );
 
-  if (promptLength <= MAX_PWD_LENGTH && MIN_PWD_LENGTH >= 8) {
+  if (promptLength <= MAX_PWD_LENGTH && promptLength >= MIN_PWD_LENGTH) {
     //Check if the user input is an integer between the range or not
     if (
       promptLength % HALF_MODIFIER === 1 ||
