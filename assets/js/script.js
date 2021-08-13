@@ -2,20 +2,31 @@
 var tempP = "";
 var count = 0;
 var charLength = null;
+var charList = " !\"#$%&'()*+,-./:;<=>?@[]^_`{|}~";
 
 var length = function () {
-  var promptLength = window.prompt("How many character do you want?");
+  var promptLength = window.prompt(
+    "How many characters would you like to contain"
+  );
 
   if (promptLength <= 128 && promptLength >= 8) {
     charLength = promptLength;
     userPrompt();
+  } else if (promptLength < 8) {
+    window.alert("Password length mush be at least 8 characters");
+    return;
+  } else if (promptLength > 128) {
+    window.alert("Password length must be no more than 128 characters");
+    return;
+  } else if (promptLength === null) {
+    return;
   } else {
-    window.alert("Please inster a number between 8 to 128");
+    window.alert("Please insert a number instead");
+    return;
   }
 };
 
 var randomChar = function () {
-  var charList = " !\"#$%&'()*+,-./:;<=>?@[]^_`{|}~";
   return charList[Math.floor(Math.random() * charList.length)];
 };
 
@@ -78,6 +89,7 @@ var userPrompt = function () {
       tempP += "";
     }
   }
+
   generatePassword();
 };
 
